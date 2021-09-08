@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { VisitCounterResponse } from '../../../api/src/visit-counter';
 
 export const VisitCount: React.FC = () => {
   const number = useVisitCount();
@@ -22,7 +23,7 @@ export function useVisitCount(): number {
         : '/api/visits';
 
       const res = await fetch(host);
-      const resJson = await res.json();
+      const resJson: VisitCounterResponse = await res.json();
       const hitCount = resJson.visitCount;
       setVisitCount(hitCount);
     }

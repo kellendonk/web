@@ -1,7 +1,8 @@
 import type * as lambda from 'aws-lambda';
 import * as AWS from 'aws-sdk';
-import { FUNCTION_DATABASE_ENV_NAME } from '../constants';
-import { VisitCounter } from '../visit-counter';
+import { VisitCounterResponse } from './api';
+import { FUNCTION_DATABASE_ENV_NAME } from './constants';
+import { VisitCounter } from './visit-counter';
 
 const tableName = getDatabaseTableName();
 const dynamoDB = new AWS.DynamoDB();
@@ -15,16 +16,18 @@ export async function handler(
     tableName,
   });
 
-  const visitCount = await visitCounter.hit();
+  const visitCount = await visitCounter.visit();
+
+  const response: VisitCounterResponse = {
+    visitCount,
+  };
 
   return {
     statusCode: 200,
     headers: {
       'content-type': 'application/json',
     },
-    body: JSON.stringify({
-      visitCount,
-    }),
+    body: JSON.stringify(response),
   };
 }
 

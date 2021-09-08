@@ -10513,6 +10513,7 @@ __metadata:
     "@sls-next/lambda-at-edge": ^3.3.0
     "@types/node": ^16.7.2
     "@types/react": ^17.0.19
+    api: 0.0.0
     bootstrap: ^5.1.0
     bootstrap-icons: ^1.5.0
     html-react-parser: ^1.2.8

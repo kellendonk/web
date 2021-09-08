@@ -5,7 +5,7 @@ export abstract class VisitCounter {
     return new ExpressionIncrementingVisitCounter(options);
   }
 
-  abstract hit(): Promise<number>;
+  abstract visit(): Promise<number>;
 }
 
 export interface VisitCounterOptions {
@@ -29,7 +29,7 @@ abstract class BaseVisitCounter extends VisitCounter {
     this.tableName = options.tableName;
   }
 
-  abstract hit(): Promise<number>;
+  abstract visit(): Promise<number>;
 }
 
 class ExpressionIncrementingVisitCounter extends BaseVisitCounter {
@@ -37,7 +37,7 @@ class ExpressionIncrementingVisitCounter extends BaseVisitCounter {
     super(options);
   }
 
-  async hit(): Promise<number> {
+  async visit(): Promise<number> {
     const item = await this.dynamoDB
       .updateItem({
         TableName: this.tableName,

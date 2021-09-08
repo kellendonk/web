@@ -34,7 +34,7 @@ export class Api extends cdk.Construct implements ICdnBehaviorOptions {
     const visitsHandler = new lambda.Function(this, 'Handler', {
       code: lambda.Code.fromAsset(api.getAssetDir()),
       runtime: lambda.Runtime.NODEJS_14_X,
-      handler: 'functions/visits.handler',
+      handler: 'visit-counter/lambda.handler',
       environment: {
         [api.FUNCTION_DATABASE_ENV_NAME]: props.database.table.tableName,
       },
