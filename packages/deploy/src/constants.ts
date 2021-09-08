@@ -8,7 +8,7 @@ export const PACKAGES_BASE = path.join(__dirname, '..', '..');
 /** SSM Parameter containing the ARN for the CodePipeline connection to the repository */
 export const PIPELINE_CONNECTION_ARN_PARAM = '/CdkCrc/pipeline-connection-arn';
 /** The repository on the connection */
-export const PIPELINE_REPO = 'misterjoshua/cdk-crc';
+export const PIPELINE_REPO = 'kellendonk/web';
 /** Branch to source for what to build and deploy */
 export const PIPELINE_REPO_BRANCH = 'main';
 
