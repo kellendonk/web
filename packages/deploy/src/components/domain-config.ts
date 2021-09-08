@@ -5,5 +5,5 @@ export interface DomainConfig {
   /** Domains to serve with this certificate */
   readonly domainNames: string[];
   /** Zone to insert DNS records into */
-  readonly hostedZoneIdParameter?: string;
+  readonly domainZoneIdParam?: string;
 }

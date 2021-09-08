@@ -23,7 +23,7 @@ export class Dns extends cdk.Construct {
 
     if (
       domainConfig &&
-      domainConfig.hostedZoneIdParameter &&
+      domainConfig.domainZoneIdParam &&
       domainConfig.domainNames.length > 0
     ) {
       this.mainDomain = domainConfig.domainNames[0];
@@ -31,7 +31,7 @@ export class Dns extends cdk.Construct {
       const hostedZoneIdParameter = ssm.StringParameter.fromStringParameterName(
         this,
         'HostedZoneIdParameter',
-        domainConfig.hostedZoneIdParameter,
+        domainConfig.domainZoneIdParam,
       );
 
       const { zoneName } = parseDomain(this.mainDomain);

@@ -6,34 +6,35 @@ import {
   ShellStep,
 } from '@aws-cdk/pipelines';
 import { CdkCrcStage } from './cdk-crc-stage';
-import {
-  DOMAIN_CERT_PARAM,
-  DOMAIN_NAME,
-  DOMAIN_ZONE_ID_PARAM,
-  PIPELINE_CONNECTION_ARN_PARAM,
-  PIPELINE_REPO,
-  PIPELINE_REPO_BRANCH,
-} from './constants';
+
+export interface PipelineProps extends cdk.StackProps {
+  readonly domainCertParam: string;
+  readonly domainName: string;
+  readonly domainZoneIdParam: string;
+  readonly pipelineConnectionArnParam: string;
+  readonly pipelineRepo: string;
+  readonly pipelineBranch: string;
+}
 
 /**
  * Create a CDK Pipeline from github to production.
  */
 export class Pipeline extends cdk.Stack {
-  constructor(app: cdk.Construct, id: string, props: cdk.StackProps = {}) {
+  constructor(app: cdk.Construct, id: string, props: PipelineProps) {
     super(app, id, props);
 
     // Fetch the Pipeline Connection ARN from SSM
     const pipelineConnectionArnParam = StringParameter.fromStringParameterName(
       this,
       'PipelineConnectionArnParameter',
-      PIPELINE_CONNECTION_ARN_PARAM,
+      props.pipelineConnectionArnParam,
     );
 
     const pipeline = new CodePipeline(this, 'Pipeline', {
       synth: new ShellStep('Synth', {
         input: CodePipelineSource.connection(
-          PIPELINE_REPO,
-          PIPELINE_REPO_BRANCH,
+          props.pipelineRepo,
+          props.pipelineBranch,
           {
             connectionArn: pipelineConnectionArnParam.stringValue,
           },
@@ -57,9 +58,9 @@ export class Pipeline extends cdk.Stack {
         region: this.region,
       },
       domainConfig: {
-        certificateParameter: DOMAIN_CERT_PARAM,
-        domainNames: [`cdk-crc-test.${DOMAIN_NAME}`],
-        hostedZoneIdParameter: DOMAIN_ZONE_ID_PARAM,
+        certificateParameter: props.domainCertParam,
+        domainNames: [`cdk-crc-test.${props.domainName}`],
+        domainZoneIdParam: props.domainZoneIdParam,
       },
     });
 
@@ -69,9 +70,9 @@ export class Pipeline extends cdk.Stack {
         region: this.region,
       },
       domainConfig: {
-        certificateParameter: DOMAIN_CERT_PARAM,
-        domainNames: [`www.${DOMAIN_NAME}`, DOMAIN_NAME],
-        hostedZoneIdParameter: DOMAIN_ZONE_ID_PARAM,
+        certificateParameter: props.domainCertParam,
+        domainNames: [`www.${props.domainName}`, props.domainName],
+        domainZoneIdParam: props.domainZoneIdParam,
       },
     });
 
