@@ -1,9 +1,9 @@
 import * as cdk from '@aws-cdk/core';
+import * as sls_next from '@rayova/cdk-serverless-nextjs';
 import * as path from 'path';
 import { Cdn } from './components/cdn';
 import { Dns } from './components/dns';
 import { DomainConfig } from './components/domain-config';
-import { ServerlessNextjs } from './components/serverless-nextjs';
 import { PACKAGES_BASE } from './constants';
 import { RegionalStatefulStack } from './stacks/regional-stateful-stack';
 import { RegionalStatelessStack } from './stacks/regional-stateless-stack';
@@ -52,21 +52,20 @@ export class CdkCrcStage extends cdk.Stage {
       env: edgeEnv,
     });
 
-    const serverlessNextJs = new ServerlessNextjs(edge, 'Nextjs', {
-      lambdaBaseDir: path.join(PACKAGES_BASE, 'frontend', 'out-lambda'),
+    const serverlessNextjs = new sls_next.ServerlessNextjs(edge, 'Nextjs', {
+      nextjsArtifact: sls_next.NextjsArtifact.fromBuild({
+        nextjsDirectory: path.join(PACKAGES_BASE, 'frontend'),
+        buildCommand: ['yarn', 'next', 'build'],
+      }),
     });
 
-    // Front the static site and api with a CDN
     const cdn = new Cdn(edge, 'Cdn', {
       domainConfig: props.domainConfig,
-      defaultBehavior: serverlessNextJs,
-      behaviors: [
-        ...serverlessNextJs.cdnAdditionalBehaviorOptions(),
-        {
-          path: '/api/*',
-          cdnBehaviorOptions: regionalStatelessStack.regionalApi,
-        },
-      ],
+      defaultBehavior: serverlessNextjs.cloudFrontConfig.defaultBehavior,
+      additionalBehaviors: {
+        ...serverlessNextjs.cloudFrontConfig.additionalBehaviors,
+        '/api/*': regionalStatelessStack.regionalApi.cdnBehaviorOptions(edge),
+      },
     });
 
     // Configure DNS

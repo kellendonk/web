@@ -49,6 +49,7 @@
     "typescript": "^4.3.5"
   },
   "dependencies": {
+    "@rayova/cdk-serverless-nextjs": "^0.0.10",
     "@wheatstalk/cdk-intrinsic-validator": "^0.1.43"
   }
 }

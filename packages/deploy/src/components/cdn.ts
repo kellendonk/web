@@ -7,24 +7,25 @@ import { DomainConfig } from './domain-config';
 /** Props for `Cdn` */
 export interface CdnProps {
   /** Default behavior */
-  readonly defaultBehavior: ICdnBehaviorOptions;
+  readonly defaultBehavior: cloudfront.BehaviorOptions;
+
+  /** Additional behaviors */
+  readonly additionalBehaviors?: Record<string, cloudfront.BehaviorOptions>;
 
   /** Optional domain configuration */
   readonly domainConfig?: DomainConfig;
-
-  /** Behaviors to add */
-  readonly behaviors?: AddCdnBehaviorOptions[];
 }
 
 /** Options when adding cdn behaviors */
 export interface AddCdnBehaviorOptions {
   /** Path of the behavior */
   readonly path: string;
+
   /** The behavior options provider */
-  readonly cdnBehaviorOptions: ICdnBehaviorOptions;
+  readonly behaviorOptions: cloudfront.BehaviorOptions;
 }
 
-/** Behavior options provider */
+/** Behavior options provider, especially in a remote region stack */
 export interface ICdnBehaviorOptions {
   /** Provide behavior options */
   cdnBehaviorOptions(scope: cdk.Construct): cloudfront.BehaviorOptions;
@@ -42,7 +43,8 @@ export class Cdn extends cdk.Construct {
     );
 
     this.distribution = new cloudfront.Distribution(this, 'Distribution', {
-      defaultBehavior: props.defaultBehavior.cdnBehaviorOptions(this),
+      defaultBehavior: props.defaultBehavior,
+      additionalBehaviors: props.additionalBehaviors,
 
       // Reduce the cost
       priceClass: cloudfront.PriceClass.PRICE_CLASS_100,
@@ -50,26 +52,6 @@ export class Cdn extends cdk.Construct {
       // Configure the certificate & domain names if available.
       ...domainNameConfigs,
     });
-
-    // Connect the CDN to the API
-
-    for (const behavior of props.behaviors ?? []) {
-      this.addBehavior(behavior);
-    }
-  }
-
-  /** Add a behavior to the CDN */
-  public addBehavior(behavior: AddCdnBehaviorOptions) {
-    const scope = new cdk.Construct(this, `Path${behavior.path}`);
-
-    const behaviorOptions =
-      behavior.cdnBehaviorOptions.cdnBehaviorOptions(scope);
-
-    this.distribution.addBehavior(
-      behavior.path,
-      behaviorOptions.origin,
-      behaviorOptions,
-    );
   }
 
   private renderDistributionDomainConfig(domainConfig?: DomainConfig) {
