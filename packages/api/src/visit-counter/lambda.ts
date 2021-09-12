@@ -1,10 +1,11 @@
 import type * as lambda from 'aws-lambda';
 import * as AWS from 'aws-sdk';
-import { VisitCounterResponse } from './api';
-import { FUNCTION_DATABASE_ENV_NAME } from './constants';
-import { VisitCounter } from './visit-counter';
+import {VisitCounterResponse} from './api';
+import {FUNCTION_DATABASE_ENV_NAME} from './constants';
+import {VisitCounter} from './visit-counter';
+import {ensureEnv} from "../ensure-env";
 
-const tableName = getDatabaseTableName();
+const tableName = ensureEnv(FUNCTION_DATABASE_ENV_NAME);
 const dynamoDB = new AWS.DynamoDB();
 
 export async function handler(
@@ -29,14 +30,4 @@ export async function handler(
     },
     body: JSON.stringify(response),
   };
-}
-
-function getDatabaseTableName() {
-  const tableName = process.env[FUNCTION_DATABASE_ENV_NAME];
-  if (!tableName) {
-    throw new Error(
-      `This handler is misconfigured. Please provide the \`${FUNCTION_DATABASE_ENV_NAME}\` environment variable.`,
-    );
-  }
-  return tableName;
 }

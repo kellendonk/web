@@ -1,0 +1,40 @@
+import {OAuth2PasswordSecret, SecretJsonProvider} from "./secret-json-provider";
+import fetch from "node-fetch";
+
+export interface TokenProviderOptions {
+  readonly tokenEndpoint: string;
+  readonly oAuth2PasswordSecretProvider: SecretJsonProvider<OAuth2PasswordSecret>;
+}
+
+export class AccessTokenProvider {
+  private readonly tokenEndpoint: string;
+  private readonly oAuth2PasswordSecretProvider: SecretJsonProvider<OAuth2PasswordSecret>;
+
+  constructor(options: TokenProviderOptions) {
+    this.tokenEndpoint = options.tokenEndpoint;
+    this.oAuth2PasswordSecretProvider = options.oAuth2PasswordSecretProvider;
+  }
+
+  async provide(): Promise<string> {
+    const oauth2PasswordSecret = await this.oAuth2PasswordSecretProvider.provide();
+
+    const body = [
+      `grant_type=password`,
+      `username=${encodeURIComponent(oauth2PasswordSecret.username)}`,
+      `password=${encodeURIComponent(oauth2PasswordSecret.password)}`,
+      `client_id=${encodeURIComponent(oauth2PasswordSecret.clientId)}`,
+      `client_secret=${encodeURIComponent(oauth2PasswordSecret.clientSecret)}`,
+    ].join('&');
+
+    const res = await fetch(this.tokenEndpoint, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
+      },
+      body,
+    });
+
+    const resJson = await res.json();
+    return resJson.access_token;
+  }
+}

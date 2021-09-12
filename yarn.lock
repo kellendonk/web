@@ -6522,6 +6522,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/node-fetch@npm:^2.5.12":
+  version: 2.5.12
+  resolution: "@types/node-fetch@npm:2.5.12"
+  dependencies:
+    "@types/node": "*"
+    form-data: ^3.0.0
+  checksum: ad63c85ba6a9477b8e057ec8682257738130d98e8ece4e31141789bd99df9d9147985cc8bc0cb5c8983ed5aa6bb95d46df23d1e055f4ad5cf8b82fc69cf626c7
+  languageName: node
+  linkType: hard
+
 "@types/node@npm:*, @types/node@npm:^16.7.2":
   version: 16.7.2
   resolution: "@types/node@npm:16.7.2"
@@ -7128,8 +7138,10 @@ __metadata:
     "@types/aws-lambda": ^8.10.83
     "@types/jest": ^27.0.1
     "@types/node": ^14.17.12
+    "@types/node-fetch": ^2.5.12
     aws-sdk: ^2.977.0
     jest: ^27.0.6
+    node-fetch: 2.6.2
     ts-jest: ^27.0.5
     typescript: ^4.3.5
   languageName: unknown
@@ -14457,6 +14469,13 @@ __metadata:
   version: 2.6.1
   resolution: "node-fetch@npm:2.6.1"
   checksum: 91075bedd57879117e310fbcc36983ad5d699e522edb1ebcdc4ee5294c982843982652925c3532729fdc86b2d64a8a827797a745f332040d91823c8752ee4d7c
+  languageName: node
+  linkType: hard
+
+"node-fetch@npm:2.6.2":
+  version: 2.6.2
+  resolution: "node-fetch@npm:2.6.2"
+  checksum: de367eae1dfbc0e12283c1cf92256ea7fba7eac8655e2e51ebb217727162396fc6cf24689ef9fc6accf075e3991e2ffaa061f7cfaa958215329649b2297ff06d
   languageName: node
   linkType: hard
 
