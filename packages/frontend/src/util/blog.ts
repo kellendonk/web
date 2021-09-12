@@ -1,3 +1,5 @@
+import { BlogPreviewResponse } from '../../../api/src/blog-preview';
+
 export function getBlogHref(item) {
   return `/blog/posts/${item.slug}`;
 }
@@ -5,6 +7,8 @@ export function getBlogHref(item) {
 interface BlogDataOptions {
   /** WP API Base URL */
   readonly apiBaseUrl: string;
+  /** Preview API Base URL */
+  readonly previewApiBaseUrl: string;
 }
 
 /** Access to the blog data */
@@ -13,13 +17,16 @@ export class BlogData {
     return new BlogData({
       apiBaseUrl:
         'https://public-api.wordpress.com/wp/v2/sites/joshkellendonk.wordpress.com/',
+      previewApiBaseUrl: 'https://www.kellendonk.ca/api/blog-preview/',
     });
   }
 
   private readonly apiBaseUrl: string;
+  private readonly previewApiBaseUrl: string;
 
   constructor(options: BlogDataOptions) {
     this.apiBaseUrl = options.apiBaseUrl;
+    this.previewApiBaseUrl = options.previewApiBaseUrl;
   }
 
   async getIndexResult(page: number): Promise<BlogIndexResult> {
@@ -45,6 +52,16 @@ export class BlogData {
     };
   }
 
+  async getPreviewById(postId: number): Promise<BlogPost> {
+    const res = await fetch(`${this.previewApiBaseUrl}${postId}`);
+    const post: BlogPreviewResponse = await res.json();
+    if (post.postId !== postId) {
+      throw new BlogDataNotFoundError();
+    }
+
+    return mapPostToBlogIndexItem(post.post);
+  }
+
   async getPostBySlug(slug: string): Promise<BlogPost> {
     const res = await fetch(`${this.apiBaseUrl}posts?slug=${slug}`);
     const totalPosts = parseInt(res.headers.get('X-WP-Total'));
@@ -53,8 +70,13 @@ export class BlogData {
       throw new BlogDataNotFoundError();
     }
 
-    const posts = await res.json();
-    return posts.map(mapPostToBlogIndexItem)[0];
+    try {
+      const posts = await res.json();
+      return posts.map(mapPostToBlogIndexItem)[0];
+    } catch (e) {
+      console.error(e);
+      throw new BlogDataNotFoundError();
+    }
   }
 }
 
