@@ -1,13 +1,13 @@
 import fetch from 'node-fetch';
-import { AccessTokenProvider } from './access-token-provider';
+import { AsyncValueProvider } from './async-value-provider';
 
 export interface BlogPostsOptions {
-  readonly accessTokenProvider: AccessTokenProvider;
+  readonly accessTokenProvider: AsyncValueProvider<string>;
   readonly wordpressApiBase: string;
 }
 
 export class BlogPosts {
-  private readonly accessTokenProvider: AccessTokenProvider;
+  private readonly accessTokenProvider: AsyncValueProvider<string>;
   private readonly wordpressApiBase: string;
 
   constructor(options: BlogPostsOptions) {

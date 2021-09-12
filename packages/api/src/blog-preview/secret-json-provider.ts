@@ -1,6 +1,7 @@
 import * as AWS from 'aws-sdk';
+import { AsyncValueProvider } from './async-value-provider';
 
-export abstract class SecretJsonProvider<T> {
+export abstract class SecretJsonProvider<T> implements AsyncValueProvider<T> {
   static secretsManager<T>(
     options: SecretsManagerProviderOptions,
   ): SecretJsonProvider<T> {

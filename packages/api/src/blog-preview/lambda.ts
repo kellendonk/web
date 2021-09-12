@@ -3,6 +3,7 @@ import * as AWS from 'aws-sdk';
 import { ensureEnv } from '../ensure-env';
 import { AccessTokenProvider } from './access-token-provider';
 import { BlogPreviewResponse } from './api';
+import { CachedValueProvider } from './async-value-provider';
 import { BlogPosts } from './blog-posts';
 import * as constants from './constants';
 import { SecretJsonProvider } from './secret-json-provider';
@@ -15,8 +16,12 @@ const accessTokenProvider = new AccessTokenProvider({
   }),
 });
 
+const cachedAccessTokenProvider = new CachedValueProvider({
+  valueProvider: accessTokenProvider,
+});
+
 const blogPosts = new BlogPosts({
-  accessTokenProvider,
+  accessTokenProvider: cachedAccessTokenProvider,
   wordpressApiBase: ensureEnv(constants.WORDPRESS_API_BASE_ENV_VAR),
 });
 

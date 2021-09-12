@@ -1,19 +1,20 @@
 import fetch from 'node-fetch';
+import { AsyncValueProvider } from './async-value-provider';
 import {
   OAuth2PasswordSecret,
   SecretJsonProvider,
 } from './secret-json-provider';
 
-export interface TokenProviderOptions {
+export interface AccessTokenProviderOptions {
   readonly tokenEndpoint: string;
   readonly oAuth2PasswordSecretProvider: SecretJsonProvider<OAuth2PasswordSecret>;
 }
 
-export class AccessTokenProvider {
+export class AccessTokenProvider implements AsyncValueProvider<string> {
   private readonly tokenEndpoint: string;
   private readonly oAuth2PasswordSecretProvider: SecretJsonProvider<OAuth2PasswordSecret>;
 
-  constructor(options: TokenProviderOptions) {
+  constructor(options: AccessTokenProviderOptions) {
     this.tokenEndpoint = options.tokenEndpoint;
     this.oAuth2PasswordSecretProvider = options.oAuth2PasswordSecretProvider;
   }
