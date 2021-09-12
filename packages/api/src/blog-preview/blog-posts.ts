@@ -1,16 +1,16 @@
-import {AccessTokenProvider} from "./access-token-provider";
-import fetch from "node-fetch";
+import fetch from 'node-fetch';
+import { AccessTokenProvider } from './access-token-provider';
 
-export interface BlogPostPreviewOptions {
+export interface BlogPostsOptions {
   readonly accessTokenProvider: AccessTokenProvider;
   readonly wordpressApiBase: string;
 }
 
-export class BlogPostPreview {
+export class BlogPosts {
   private readonly accessTokenProvider: AccessTokenProvider;
   private readonly wordpressApiBase: string;
 
-  constructor(options: BlogPostPreviewOptions) {
+  constructor(options: BlogPostsOptions) {
     this.accessTokenProvider = options.accessTokenProvider;
     this.wordpressApiBase = options.wordpressApiBase;
   }
@@ -18,14 +18,16 @@ export class BlogPostPreview {
   async getPost(postId: number): Promise<object> {
     const accessToken = await this.accessTokenProvider.provide();
 
-    const res = await fetch(`${this.wordpressApiBase}posts/${postId}`, {
+    const url = `${this.wordpressApiBase}posts/${postId}`;
+    console.log(`Fetching ${url}`);
+    const res = await fetch(url, {
       headers: {
-        'Authorization': `Bearer ${accessToken}`,
+        Authorization: `Bearer ${accessToken}`,
       },
     });
 
     if (!res.ok) {
-      throw new Error(`Not ok! ${res.status} ${res.statusText}`);
+      throw new Error(`HTTP request not ok: ${res.status} ${res.statusText}`);
     }
 
     return await res.json();

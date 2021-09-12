@@ -1,5 +1,8 @@
-import {OAuth2PasswordSecret, SecretJsonProvider} from "./secret-json-provider";
-import fetch from "node-fetch";
+import fetch from 'node-fetch';
+import {
+  OAuth2PasswordSecret,
+  SecretJsonProvider,
+} from './secret-json-provider';
 
 export interface TokenProviderOptions {
   readonly tokenEndpoint: string;
@@ -16,7 +19,8 @@ export class AccessTokenProvider {
   }
 
   async provide(): Promise<string> {
-    const oauth2PasswordSecret = await this.oAuth2PasswordSecretProvider.provide();
+    const oauth2PasswordSecret =
+      await this.oAuth2PasswordSecretProvider.provide();
 
     const body = [
       `grant_type=password`,
@@ -29,7 +33,7 @@ export class AccessTokenProvider {
     const res = await fetch(this.tokenEndpoint, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
+        'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
       },
       body,
     });

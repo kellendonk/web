@@ -9,3 +9,4 @@ packages/deploy/cdk.out
 packages/frontend/.next
 packages/frontend/out
 packages/frontend/out-lambda
+packages/frontend/.serverless_nextjs

@@ -1,9 +1,9 @@
 import type * as lambda from 'aws-lambda';
 import * as AWS from 'aws-sdk';
-import {VisitCounterResponse} from './api';
-import {FUNCTION_DATABASE_ENV_NAME} from './constants';
-import {VisitCounter} from './visit-counter';
-import {ensureEnv} from "../ensure-env";
+import { ensureEnv } from '../ensure-env';
+import { VisitCounterResponse } from './api';
+import { FUNCTION_DATABASE_ENV_NAME } from './constants';
+import { VisitCounter } from './visit-counter';
 
 const tableName = ensureEnv(FUNCTION_DATABASE_ENV_NAME);
 const dynamoDB = new AWS.DynamoDB();

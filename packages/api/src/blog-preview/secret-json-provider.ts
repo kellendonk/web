@@ -1,14 +1,16 @@
-import * as AWS from "aws-sdk";
+import * as AWS from 'aws-sdk';
 
 export abstract class SecretJsonProvider<T> {
-  static secretsManager<T>(options: SecretsManagerProviderOptions): SecretJsonProvider<T> {
+  static secretsManager<T>(
+    options: SecretsManagerProviderOptions,
+  ): SecretJsonProvider<T> {
     return new SecretsManagerProvider<T>(options);
   }
 
   static value<T>(secretJson: T): SecretJsonProvider<T> {
     return {
       provide: async () => secretJson,
-    }
+    };
   }
 
   abstract provide(): Promise<T>;
@@ -30,9 +32,11 @@ class SecretsManagerProvider<T> extends SecretJsonProvider<T> {
   }
 
   async provide(): Promise<T> {
-    const secretValue = await this.secretsManager.getSecretValue({
-      SecretId: this.secretId,
-    }).promise();
+    const secretValue = await this.secretsManager
+      .getSecretValue({
+        SecretId: this.secretId,
+      })
+      .promise();
 
     return JSON.parse(secretValue.SecretString!);
   }
