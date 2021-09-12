@@ -6672,9 +6672,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rayova/cdk-serverless-nextjs@npm:^0.0.12":
-  version: 0.0.12
-  resolution: "@rayova/cdk-serverless-nextjs@npm:0.0.12"
+"@rayova/cdk-serverless-nextjs@npm:^0.0.13":
+  version: 0.0.13
+  resolution: "@rayova/cdk-serverless-nextjs@npm:0.0.13"
   dependencies:
     "@sls-next/lambda-at-edge": ^3.3.0
     execa: ^5.1.1
@@ -6691,7 +6691,7 @@ __metadata:
     "@aws-cdk/aws-sqs": ^1.95.2
     "@aws-cdk/core": ^1.95.2
     constructs: ^3.2.27
-  checksum: f90f727299af5db8f1214708984a4eaea40c9a49ee47cc7d3f511770fe4c134b36d6b2ea71f72f32a1c48bce01cb91821e0cbe6a71601d4b93333fb6f5e74f20
+  checksum: 9891a450413af890cb604428ac79bc4bff29f0d6a0d9bed8bd8ed17703e8600367dd2171e4d33993edbd58ca69ed3f4cfe41a051779629c53afffefe61c58ce2
   languageName: node
   linkType: hard
 
@@ -7300,9 +7300,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@wheatstalk/cdk-intrinsic-validator@npm:^0.1.43":
-  version: 0.1.43
-  resolution: "@wheatstalk/cdk-intrinsic-validator@npm:0.1.43"
+"@wheatstalk/cdk-intrinsic-validator@npm:^0.1.46":
+  version: 0.1.46
+  resolution: "@wheatstalk/cdk-intrinsic-validator@npm:0.1.46"
   peerDependencies:
     "@aws-cdk/aws-cloudwatch": ^1.95.2
     "@aws-cdk/aws-ec2": ^1.95.2
@@ -7315,7 +7315,7 @@ __metadata:
     "@aws-cdk/core": ^1.95.2
     "@aws-cdk/custom-resources": ^1.95.2
     constructs: ^3.2.27
-  checksum: c028b9371ea190e294d3c59a4700a8d10f3610f5fe9d0d3e10259f88f3d88539af6bef2d2666faa05becab9b1eb7b38f1b262b854528504606e8b7de6b3d5340
+  checksum: 203695f479f5007dc50e6fb7ea368c013184944527a0e43e488b96eb6c51b6f0f90b24a3474e5700fdf3c7ea750a45c2f270d0aaf369b961f84e842713df087e
   languageName: node
   linkType: hard
 
@@ -9935,11 +9935,11 @@ __metadata:
     "@aws-cdk/core": ^1.121.0
     "@aws-cdk/custom-resources": ^1.121.0
     "@aws-cdk/pipelines": ^1.121.0
-    "@rayova/cdk-serverless-nextjs": ^0.0.12
+    "@rayova/cdk-serverless-nextjs": ^0.0.13
     "@sls-next/lambda-at-edge": ^3.2.0
     "@types/jest": ^26.0.10
     "@types/node": ^16.7.2
-    "@wheatstalk/cdk-intrinsic-validator": ^0.1.43
+    "@wheatstalk/cdk-intrinsic-validator": ^0.1.46
     api: 0.0.0
     aws-cdk: ^1.120.0
     cdk-remote-stack: ^0.1.136
