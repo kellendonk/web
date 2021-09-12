@@ -6196,9 +6196,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rayova/cdk-serverless-nextjs@npm:^0.0.10":
-  version: 0.0.10
-  resolution: "@rayova/cdk-serverless-nextjs@npm:0.0.10"
+"@rayova/cdk-serverless-nextjs@npm:^0.0.12":
+  version: 0.0.12
+  resolution: "@rayova/cdk-serverless-nextjs@npm:0.0.12"
   dependencies:
     "@sls-next/lambda-at-edge": ^3.3.0
     execa: ^5.1.1
@@ -6215,7 +6215,7 @@ __metadata:
     "@aws-cdk/aws-sqs": ^1.95.2
     "@aws-cdk/core": ^1.95.2
     constructs: ^3.2.27
-  checksum: 3ea5980fb686391cf9a1d484b4090b4a8130757f49cdd38eb0b510e0db31e0ae8f13c86087a38de9db00ecfee7122eef8eb2c9a1ae97c66ec894efbd7902e171
+  checksum: f90f727299af5db8f1214708984a4eaea40c9a49ee47cc7d3f511770fe4c134b36d6b2ea71f72f32a1c48bce01cb91821e0cbe6a71601d4b93333fb6f5e74f20
   languageName: node
   linkType: hard
 
@@ -9430,7 +9430,7 @@ __metadata:
     "@aws-cdk/core": ^1.121.0
     "@aws-cdk/custom-resources": ^1.121.0
     "@aws-cdk/pipelines": ^1.121.0
-    "@rayova/cdk-serverless-nextjs": ^0.0.10
+    "@rayova/cdk-serverless-nextjs": ^0.0.12
     "@sls-next/lambda-at-edge": ^3.2.0
     "@types/jest": ^26.0.10
     "@types/node": ^16.7.2
