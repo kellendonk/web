@@ -23,20 +23,21 @@ export class AccessTokenProvider implements AsyncValueProvider<string> {
     const oauth2PasswordSecret =
       await this.oAuth2PasswordSecretProvider.provide();
 
-    const body = [
-      `grant_type=password`,
-      `username=${encodeURIComponent(oauth2PasswordSecret.username)}`,
-      `password=${encodeURIComponent(oauth2PasswordSecret.password)}`,
-      `client_id=${encodeURIComponent(oauth2PasswordSecret.clientId)}`,
-      `client_secret=${encodeURIComponent(oauth2PasswordSecret.clientSecret)}`,
-    ].join('&');
-
+    // Create an OAuth2 password grant request
     const res = await fetch(this.tokenEndpoint, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
       },
-      body,
+      body: [
+        `grant_type=password`,
+        `username=${encodeURIComponent(oauth2PasswordSecret.username)}`,
+        `password=${encodeURIComponent(oauth2PasswordSecret.password)}`,
+        `client_id=${encodeURIComponent(oauth2PasswordSecret.clientId)}`,
+        `client_secret=${encodeURIComponent(
+          oauth2PasswordSecret.clientSecret,
+        )}`,
+      ].join('&'),
     });
 
     const resJson = await res.json();

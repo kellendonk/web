@@ -1,5 +1,5 @@
 import fetch from 'node-fetch';
-import { AsyncValueProvider } from './async-value-provider';
+import { AsyncValueProvider } from '../util/async-value-provider';
 
 export interface BlogPostsOptions {
   readonly accessTokenProvider: AsyncValueProvider<string>;

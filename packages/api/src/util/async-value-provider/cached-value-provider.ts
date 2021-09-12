@@ -1,6 +1,4 @@
-export interface AsyncValueProvider<T> {
-  provide(): Promise<T>;
-}
+import { AsyncValueProvider } from './async-value-provider';
 
 export interface CachedValueProviderOptions<T> {
   readonly valueProvider: AsyncValueProvider<T>;

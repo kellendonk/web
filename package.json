@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "build": "lerna run build",
+    "format": "prettier --write .",
     "postinstall": "husky install",
     "prepublishOnly": "pinst --disable",
     "postpublish": "pinst --enable"
