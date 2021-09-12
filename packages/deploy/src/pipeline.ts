@@ -47,6 +47,9 @@ export class Pipeline extends cdk.Stack {
       // Allow the pipeline to self-update from git.
       selfMutation: true,
 
+      // Disable because it's faster for this project not to publish in parallel
+      publishAssetsInParallel: false,
+
       // Docker is used throughout.
       dockerEnabledForSynth: true,
       dockerEnabledForSelfMutation: true,
@@ -77,12 +80,6 @@ export class Pipeline extends cdk.Stack {
     });
 
     pipeline.addStage(testStage);
-    pipeline.addStage(prodStage, {
-      // pre: [
-      //   new ManualApprovalStep('Promote to Production', {
-      //     comment: `Go to https://cdk-crc-test.${DOMAIN_NAME}/ to test the site.`,
-      //   }),
-      // ],
-    });
+    pipeline.addStage(prodStage);
   }
 }
