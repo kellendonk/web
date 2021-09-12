@@ -16,21 +16,6 @@ export interface CdnProps {
   readonly domainConfig?: DomainConfig;
 }
 
-/** Options when adding cdn behaviors */
-export interface AddCdnBehaviorOptions {
-  /** Path of the behavior */
-  readonly path: string;
-
-  /** The behavior options provider */
-  readonly behaviorOptions: cloudfront.BehaviorOptions;
-}
-
-/** Behavior options provider, especially in a remote region stack */
-export interface ICdnBehaviorOptions {
-  /** Provide behavior options */
-  cdnBehaviorOptions(scope: cdk.Construct): cloudfront.BehaviorOptions;
-}
-
 /** Create a CloudFront distribution exposing the static site and the API */
 export class Cdn extends cdk.Construct {
   public readonly distribution: cloudfront.Distribution;
@@ -75,4 +60,10 @@ export class Cdn extends cdk.Construct {
       domainNames: domainConfig?.domainNames,
     };
   }
+}
+
+/** Behavior options provider, especially in a remote region stack */
+export interface ICdnBehaviorOptions {
+  /** Provide behavior options */
+  cdnBehaviorOptions(scope: cdk.Construct): cloudfront.BehaviorOptions;
 }
