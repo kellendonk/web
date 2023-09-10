@@ -112,11 +112,12 @@ function Backend({ stack }: StackContext) {
   const migrationData = use(MigrationData);
   new Script(stack, 'GuestBookImportScript', {
     onCreate: 'src/api/guestbook/import.main',
+    onUpdate: 'src/api/guestbook/import.main',
     params: {
       bucketName: migrationData.bucket.bucketName,
       keyPrefix: migrationData.dumpPrefix,
     },
-    version: 'v3',
+    version: 'v1',
     defaults: {
       function: {
         bind: [migrationData.bucket]
