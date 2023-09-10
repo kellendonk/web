@@ -9,10 +9,10 @@ export const guestBook = router({
       guestbook: z.string(),
       cursor: z.optional(z.string()),
     }))
-    .output(z.object({
-      signatures: z.array(Signature$),
-      cursor: z.optional(z.string()),
-    }))
+    // .output(z.object({
+    //   signatures: z.array(Signature$),
+    //   cursor: z.optional(z.string()),
+    // }))
     .query(async ({ input }) => {
       const subject = new GuestBook(input.guestbook);
       const resp = await subject.getSignatures(input.cursor);
