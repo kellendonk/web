@@ -2,6 +2,7 @@ import { Entity, Service } from 'electrodb';
 import { Table } from 'sst/node/table';
 import { DynamoDBDocumentClient } from '@aws-sdk/lib-dynamodb';
 import { DynamoDBClient } from '@aws-sdk/client-dynamodb';
+import { tracer } from '../powertools';
 
 export const InteractionCount = new Entity({
   model: {
@@ -32,5 +33,5 @@ new Service({
   InteractionCount,
 }, {
   table: Table.Interactions.tableName,
-  client: DynamoDBDocumentClient.from(new DynamoDBClient()),
+  client: tracer.captureAWSv3Client(DynamoDBDocumentClient.from(new DynamoDBClient())),
 })

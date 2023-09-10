@@ -1,5 +1,5 @@
 import { SSTConfig } from 'sst';
-import { Api, Cognito, Script, NextjsSite, StackContext, Table, use, Bucket } from 'sst/constructs';
+import { Api, Cognito, Script, NextjsSite, StackContext, Table, use, Bucket, Config } from 'sst/constructs';
 import { RemovalPolicy } from 'aws-cdk-lib';
 import * as s3deploy from 'aws-cdk-lib/aws-s3-deployment';
 
@@ -90,7 +90,11 @@ function Backend({ stack }: StackContext) {
     },
   });
 
-  stack.addDefaultFunctionBinding([interactionsTable, guestBookTable]);
+  const serviceName = new Config.Parameter(stack, 'serviceName', {
+    value: stack.stackName,
+  });
+
+  stack.addDefaultFunctionBinding([interactionsTable, guestBookTable, serviceName]);
 
   const api = new Api(stack, 'Api', {
     routes: {

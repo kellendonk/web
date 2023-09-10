@@ -3,6 +3,7 @@ import { Table } from 'sst/node/table';
 import { DynamoDBDocumentClient } from '@aws-sdk/lib-dynamodb';
 import { DynamoDBClient } from '@aws-sdk/client-dynamodb';
 import { ulid } from 'ulid';
+import { tracer } from '../powertools';
 
 export const GuestBookSignature = new Entity({
   model: {
@@ -56,5 +57,5 @@ export const GuestBookData = new Service({
   GuestBookSignature,
 }, {
   table: Table.GuestBook.tableName,
-  client: DynamoDBDocumentClient.from(new DynamoDBClient()),
+  client: tracer.captureAWSv3Client(DynamoDBDocumentClient.from(new DynamoDBClient())),
 });

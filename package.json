@@ -13,6 +13,8 @@
   },
   "dependencies": {
     "@apollo/client": "^3.8.3",
+    "@aws-lambda-powertools/logger": "^1.12.1",
+    "@aws-lambda-powertools/tracer": "^1.12.1",
     "@aws-sdk/client-dynamodb": "^3.409.0",
     "@aws-sdk/lib-dynamodb": "^3.409.0",
     "@fortawesome/fontawesome-svg-core": "^6.4.2",
@@ -36,6 +38,7 @@
   },
   "devDependencies": {
     "@tsconfig/recommended": "^1.0.2",
+    "@types/aws-lambda": "^8.10.119",
     "@types/node": "^20.6.0",
     "@types/react": "18.2.21",
     "@types/react-canvas-draw": "^1.2.0",
