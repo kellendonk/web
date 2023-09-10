@@ -74,7 +74,7 @@ function Backend({ stack }: StackContext) {
     },
   });
 
-  const guestBookTable = new Table(stack, 'GuestBookV2', {
+  const guestBookTable = new Table(stack, 'GuestBook', {
     fields: {
       pk: 'string',
       sk: 'string',
