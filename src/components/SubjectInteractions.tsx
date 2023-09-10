@@ -33,8 +33,8 @@ export const SubjectInteractions = ({ subject }: SubjectInteractionsProps) => {
 
       <input type='text' placeholder='' onKeyDown={(e) => {
         if (e.key === 'Enter') {
+          void addInteraction(e.currentTarget.value);
           e.currentTarget.value = '';
-          return addInteraction(e.currentTarget.value);
         }
       }} />
     </>
