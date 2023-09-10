@@ -142,8 +142,8 @@ function Web({ stack, app }: StackContext) {
       NEXT_PUBLIC_AUTH_REGION: auth.cognitoRegion,
     },
     customDomain: {
-      domainName: 'www.kellendonk.ca',
-      domainAlias: 'kellendonk.ca',
+      domainName: 'kellendonk.ca',
+      domainAlias: 'www.kellendonk.ca',
     }
   });
 
