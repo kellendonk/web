@@ -23,7 +23,9 @@ class TracingWrapper<T, U> {
   constructor(private cb: (event: T, context: lambda.Context) => Promise<U>) {
   }
 
-  @tracer.captureLambdaHandler()
+  @tracer.captureLambdaHandler({
+    captureResponse: false,
+  })
   async handler(event: T, context: lambda.Context): Promise<U> {
     return this.cb(event, context);
   }
