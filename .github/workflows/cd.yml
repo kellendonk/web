@@ -1,0 +1,30 @@
+name: CD
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  production:
+    runs-on: ubuntu-latest
+
+    environment: production
+    concurrency: production
+
+    permissions:
+      id-token: write
+      contents: read
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'yarn'
+      - run: yarn install --immutable
+      - uses: aws-actions/configure-aws-credentials@v3
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          aws-region: ca-central-1
+      - run: yarn sst deploy --stage production

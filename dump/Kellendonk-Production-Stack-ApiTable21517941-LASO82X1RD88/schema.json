@@ -1,0 +1,55 @@
+{
+  "Table": {
+    "AttributeDefinitions": [
+      {
+        "AttributeName": "PK",
+        "AttributeType": "S"
+      },
+      {
+        "AttributeName": "SK",
+        "AttributeType": "S"
+      }
+    ],
+    "TableName": "Kellendonk-Production-Stack-ApiTable21517941-LASO82X1RD88",
+    "KeySchema": [
+      {
+        "AttributeName": "PK",
+        "KeyType": "HASH"
+      },
+      {
+        "AttributeName": "SK",
+        "KeyType": "RANGE"
+      }
+    ],
+    "TableStatus": "ACTIVE",
+    "CreationDateTime": "2022-12-24T12:52:58.481000-07:00",
+    "ProvisionedThroughput": {
+      "NumberOfDecreasesToday": 0,
+      "ReadCapacityUnits": 0,
+      "WriteCapacityUnits": 0
+    },
+    "TableSizeBytes": 420268,
+    "ItemCount": 239,
+    "TableArn": "arn:aws:dynamodb:ca-central-1:573743621533:table/Kellendonk-Production-Stack-ApiTable21517941-LASO82X1RD88",
+    "TableId": "ec328c13-1afe-46ef-8d82-0f6ca4cfd7da",
+    "BillingModeSummary": {
+      "BillingMode": "PAY_PER_REQUEST",
+      "LastUpdateToPayPerRequestDateTime": "2022-12-24T12:52:58.481000-07:00"
+    },
+    "DeletionProtectionEnabled": false
+  },
+  "ResponseMetadata": {
+    "RequestId": "MJL8V7Q1F40EP22M07JGJ0P5T7VV4KQNSO5AEMVJF66Q9ASUAAJG",
+    "HTTPStatusCode": 200,
+    "HTTPHeaders": {
+      "server": "Server",
+      "date": "Sun, 10 Sep 2023 17:55:12 GMT",
+      "content-type": "application/x-amz-json-1.0",
+      "content-length": "921",
+      "connection": "keep-alive",
+      "x-amzn-requestid": "MJL8V7Q1F40EP22M07JGJ0P5T7VV4KQNSO5AEMVJF66Q9ASUAAJG",
+      "x-amz-crc32": "3800948345"
+    },
+    "RetryAttempts": 0
+  }
+}

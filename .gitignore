@@ -1,0 +1,6 @@
+/.env.local
+/.sst*
+/node_modules
+/.idea
+/.next
+/.open-next
