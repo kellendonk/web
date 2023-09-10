@@ -116,7 +116,7 @@ function Backend({ stack }: StackContext) {
       bucketName: migrationData.bucket.bucketName,
       keyPrefix: migrationData.dumpPrefix,
     },
-    version: 'v2',
+    version: 'v3',
     defaults: {
       function: {
         bind: [migrationData.bucket]
