@@ -130,7 +130,7 @@ function Backend({ stack }: StackContext) {
   };
 }
 
-function Web({ stack }: StackContext) {
+function Web({ stack, app }: StackContext) {
   const auth = use(Auth);
   const backend = use(Backend);
 
@@ -141,6 +141,10 @@ function Web({ stack }: StackContext) {
       NEXT_PUBLIC_AUTH_USER_POOL_CLIENT_ID: auth.cognito.userPoolClientId,
       NEXT_PUBLIC_AUTH_REGION: auth.cognitoRegion,
     },
+    customDomain: {
+      domainName: 'www.kellendonk.ca',
+      domainAlias: 'kellendonk.ca',
+    }
   });
 
   stack.addOutputs({
