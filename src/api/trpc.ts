@@ -16,10 +16,7 @@ const tracerMiddleware = trpc.middleware(async (opts) => {
     tracer.putAnnotation('trpc.status', 'ok');
   } else {
     tracer.putAnnotation('trpc.status', 'error');
-    tracer.putAnnotation('trpc.error.name', res.error.name);
-    tracer.putAnnotation('trpc.error.message', res.error.message);
-    tracer.putAnnotation('trpc.error.stack', res.error.stack);
-    tracer.putAnnotation('trpc.error.code', res.error.code);
+    tracer.putMetadata('trpc.error', res.error);
   }
 
   return res;
