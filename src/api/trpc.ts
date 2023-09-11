@@ -10,7 +10,7 @@ const tracerMiddleware = trpc.middleware(async (opts) => {
   const start = Date.now();
   const res = await opts.next(opts);
 
-  tracer.putAnnotation('trpc.duration', Date.now() - start);
+  tracer.putMetadata('trpc.duration', Date.now() - start);
 
   if (res.ok === true) {
     tracer.putAnnotation('trpc.status', 'ok');
