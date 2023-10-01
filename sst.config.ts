@@ -40,6 +40,12 @@ function MigrationData({ stack }: StackContext) {
       bucket: {
         removalPolicy: RemovalPolicy.DESTROY,
         autoDeleteObjects: true,
+        blockPublicAccess: {
+          blockPublicAcls: false,
+          blockPublicPolicy: false,
+          ignorePublicAcls: false,
+          restrictPublicBuckets: false,
+        },
       },
     },
   });
@@ -124,8 +130,8 @@ function Backend({ stack }: StackContext) {
     version: 'v1',
     defaults: {
       function: {
-        bind: [migrationData.bucket]
-      }
+        bind: [migrationData.bucket],
+      },
     },
   });
 
@@ -148,7 +154,7 @@ function Web({ stack, app }: StackContext) {
     customDomain: {
       domainName: 'kellendonk.ca',
       domainAlias: 'www.kellendonk.ca',
-    }
+    },
   });
 
   stack.addOutputs({
