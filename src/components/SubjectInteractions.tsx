@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useQuery, useTrpc } from './useTrpc';
+import { useActiveAfterKeySequence } from './useActiveAfterKeySequence';
 
 export interface SubjectInteractionsProps {
   readonly subject: string;
@@ -20,6 +21,8 @@ export const SubjectInteractions = ({ subject }: SubjectInteractionsProps) => {
     (a, b) => b.count - a.count,
   );
 
+  const easterEggActive = useActiveAfterKeySequence(['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a']);
+
   return (
     <>
       {interactions.map((interaction) => (
@@ -31,12 +34,16 @@ export const SubjectInteractions = ({ subject }: SubjectInteractionsProps) => {
         />
       ))}
 
-      <input type='text' placeholder='' onKeyDown={(e) => {
-        if (e.key === 'Enter') {
-          void addInteraction(e.currentTarget.value);
-          e.currentTarget.value = '';
-        }
-      }} />
+      {easterEggActive && (
+        <input className='w-6 border-2 clear-both' aria-label='Secret emoji input' type='text' placeholder=''
+               onKeyDown={(e) => {
+                 if (e.key === 'Enter') {
+                   void addInteraction(e.currentTarget.value);
+                   e.currentTarget.value = '';
+                 }
+               }}
+        />
+      )}
     </>
   );
 };
