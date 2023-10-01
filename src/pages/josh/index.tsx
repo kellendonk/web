@@ -72,7 +72,7 @@ export function Page() {
             </div>
           </div>
 
-          <div className="md:mt-7 min-w-full md:min-w-[50px] md:order-3 flex justify-center gap-4 md:flex-col md:justify-start md:items-start">
+          <div className="md:mt-7 min-w-full md:min-w-[50px] md:order-3 flex flex-wrap justify-center gap-4 md:flex-col md:justify-start md:items-start">
             <SubjectInteractions subject="/josh" />
           </div>
 
